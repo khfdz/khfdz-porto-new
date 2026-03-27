@@ -28,16 +28,16 @@ const AboutSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".about-reveal", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
+      const els = sectionRef.current?.querySelectorAll(".about-reveal");
+      if (!els) return;
+      gsap.set(els, { y: 50, opacity: 0 });
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
+          gsap.to(els, { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" });
         },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
       });
     }, sectionRef);
     return () => ctx.revert();

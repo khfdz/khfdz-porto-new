@@ -61,25 +61,22 @@ const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".skill-card", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-      });
-      gsap.from(".skill-bar-fill", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-        scaleX: 0,
-        transformOrigin: "left",
-        duration: 1,
-        stagger: 0.05,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const section = sectionRef.current;
+    if (!section) return;
+    const cards = section.querySelectorAll(".skill-card");
+    const bars = section.querySelectorAll(".skill-bar-fill");
+    gsap.set(cards, { y: 40, opacity: 0 });
+    gsap.set(bars, { scaleX: 0, transformOrigin: "left" });
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(cards, { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out" });
+        gsap.to(bars, { scaleX: 1, duration: 1, stagger: 0.05, ease: "power3.out", delay: 0.3 });
+      },
+    });
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (

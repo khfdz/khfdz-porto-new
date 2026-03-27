@@ -9,17 +9,18 @@ const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".contact-reveal", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const els = sectionRef.current?.querySelectorAll(".contact-reveal");
+    if (!els) return;
+    gsap.set(els, { y: 40, opacity: 0 });
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(els, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out" });
+      },
+    });
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (
