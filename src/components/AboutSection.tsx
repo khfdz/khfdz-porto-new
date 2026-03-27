@@ -44,31 +44,31 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="section-padding">
+    <section ref={sectionRef} id="about" className="section-padding bg-white relative z-10">
       <div className="container mx-auto max-w-5xl">
-        <p className="about-reveal text-primary font-mono text-sm mb-2 tracking-widest uppercase">
+        <p className="about-reveal text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">
           About Me
         </p>
-        <h2 className="about-reveal text-3xl md:text-5xl font-bold mb-8">
+        <h2 className="about-reveal text-4xl md:text-6xl font-bold mb-8 tracking-tight text-foreground">
           Crafting <span className="gradient-text">Digital Experiences</span>
         </h2>
-        <p className="about-reveal text-muted-foreground text-base md:text-lg leading-relaxed mb-12 max-w-2xl">
+        <p className="about-reveal text-gray-500 text-base md:text-lg leading-relaxed mb-16 max-w-3xl">
           I'm a passionate Fullstack Web Developer & IT Specialist with experience in building
           hospital information systems, web applications, and scalable tech solutions. I combine
           engineering precision with creative thinking to deliver impactful digital products.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {highlights.map((item, i) => (
             <div
               key={i}
-              className="about-reveal glass-card p-6 hover-glow transition-all duration-500 hover:-translate-y-1 hoverable"
+              className="about-reveal glass-card p-8 hover-glow transition-all duration-500 hover:-translate-y-2 hoverable border border-gray-100 bg-white/70"
             >
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "var(--gradient-primary)" }}>
-                <item.icon size={22} className="text-primary-foreground" />
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 shadow-sm" style={{ background: "var(--gradient-primary)" }}>
+                <item.icon size={26} className="text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-muted-foreground text-sm">{item.desc}</p>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">{item.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

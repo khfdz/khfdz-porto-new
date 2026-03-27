@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ArrowDown, Download, FolderOpen } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const titles = [
   "Fullstack Web Developer",
@@ -39,7 +38,7 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, titleIndex]);
 
-  // GSAP entrance
+  // GSAP entrance & parallax shapes
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".hero-content > *", {
@@ -48,7 +47,27 @@ const HeroSection = () => {
         duration: 1,
         stagger: 0.15,
         ease: "power3.out",
-        delay: 2,
+        delay: 0.5,
+      });
+      
+      // Gentle parallax for abstract shapes
+      gsap.to(".abstract-shape-1", {
+        y: -30,
+        x: 20,
+        rotation: 5,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".abstract-shape-2", {
+        y: 40,
+        x: -20,
+        rotation: -5,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -57,40 +76,39 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-background/70" />
-        <div className="absolute inset-0 grid-bg opacity-30" />
+      {/* Light modern background grid */}
+      <div className="absolute inset-0 grid-bg opacity-50" />
+      
+      {/* Abstract Soft Shapes (Artistic modern web feel) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="abstract-shape-1 absolute top-[10%] left-[15%] w-96 h-96 bg-primary/10 rounded-full blur-[100px] mix-blend-multiply" />
+        <div className="abstract-shape-2 absolute bottom-[10%] right-[15%] w-[30rem] h-[30rem] bg-indigo-200/40 rounded-full blur-[120px] mix-blend-multiply" />
+        <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-blue-100/30 rounded-full blur-[100px] mix-blend-multiply animate-pulse" />
       </div>
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-[120px] animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/15 rounded-full blur-[150px] animate-float animation-delay-400" />
-
       <div className="hero-content relative z-10 container mx-auto px-4 text-center">
-        <p className="text-primary font-mono text-sm md:text-base mb-4 tracking-widest uppercase">
+        <p className="text-primary font-mono text-sm md:text-base mb-6 tracking-widest uppercase">
           Hello, I'm
         </p>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tighter text-foreground">
           <span className="gradient-text">Dhika</span>{" "}
-          <span className="text-foreground">Hafidz</span>
+          <span className="text-gray-800">Hafidz</span>
         </h1>
-        <div className="h-10 md:h-12 flex items-center justify-center mb-6">
-          <span className="text-xl md:text-2xl font-mono text-muted-foreground">
+        <div className="h-10 md:h-12 flex items-center justify-center mb-8">
+          <span className="text-xl md:text-2xl font-mono text-gray-500">
             {displayText}
-            <span className="animate-pulse-glow text-primary">|</span>
+            <span className="animate-pulse-glow text-primary ml-1">|</span>
           </span>
         </div>
-        <p className="text-muted-foreground max-w-xl mx-auto mb-10 text-sm md:text-base leading-relaxed">
-          Building scalable systems, interactive web apps, and real-world solutions.
+        <p className="text-gray-500 max-w-xl mx-auto mb-10 text-base md:text-lg leading-relaxed">
+          Building scalable systems, interactive web apps, and real-world solutions with elegant design.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#projects"
-            className="group inline-flex items-center gap-2 px-8 py-3 rounded-lg font-medium text-primary-foreground transition-all duration-300 hover-glow hoverable"
+            className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 hoverable"
             style={{ background: "var(--gradient-primary)" }}
           >
             <FolderOpen size={18} />
@@ -98,7 +116,7 @@ const HeroSection = () => {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-medium border border-glass-border text-foreground hover:bg-muted/50 transition-all duration-300 hoverable"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium border border-gray-200 text-gray-700 bg-white/50 hover:bg-white hover:shadow-sm transition-all duration-300 hover:-translate-y-1 hoverable backdrop-blur-sm"
           >
             <Download size={18} />
             Download CV
@@ -108,7 +126,7 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-float">
-        <ArrowDown size={20} className="text-muted-foreground" />
+        <ArrowDown size={20} className="text-gray-400" />
       </div>
     </section>
   );

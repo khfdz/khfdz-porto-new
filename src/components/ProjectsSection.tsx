@@ -14,28 +14,24 @@ const projects = [
     title: "Queue System",
     desc: "Multi-department queue management system for Clinic, Pharmacy, and Front Office with real-time display & ticket printing.",
     tags: ["React", "Node.js", "MongoDB", "Socket.IO"],
-    gradient: "from-neon-purple to-neon-blue",
     image: projectQueue,
   },
   {
     title: "SIM-KOPUKM",
     desc: "Cooperative management information system for member data, savings, loans, and reporting.",
     tags: ["React", "Express", "MySQL"],
-    gradient: "from-neon-blue to-neon-cyan",
     image: projectSimkop,
   },
   {
     title: "Restaurant Website",
     desc: "Modern restaurant website with menu showcase, online ordering interface, and responsive design.",
     tags: ["Next.js", "Tailwind CSS", "MongoDB"],
-    gradient: "from-neon-cyan to-neon-purple",
     image: projectRestaurant,
   },
   {
     title: "Furniture Website",
     desc: "E-commerce style furniture showcase with product catalog, filtering, and contact integration.",
     tags: ["React", "Tailwind CSS", "Node.js"],
-    gradient: "from-neon-pink to-neon-purple",
     image: projectFurniture,
   },
 ];
@@ -72,45 +68,45 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="projects" className="section-padding">
+    <section ref={sectionRef} id="projects" className="section-padding bg-[#f8fafc] relative z-10 border-t border-gray-100">
       <div className="container mx-auto max-w-6xl">
-        <p className="text-primary font-mono text-sm mb-2 tracking-widest uppercase">Projects</p>
-        <h2 className="text-3xl md:text-5xl font-bold mb-12">
+        <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">Projects</p>
+        <h2 className="text-4xl md:text-6xl font-bold mb-16 tracking-tight text-foreground">
           Featured <span className="gradient-text">Work</span>
         </h2>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-10">
           {projects.map((proj, i) => (
             <div
               key={i}
               ref={(el) => { cardsRef.current[i] = el; }}
-              className="group glass-card overflow-hidden hover-glow transition-all duration-500 hoverable hover:-translate-y-1"
+              className="group glass-card overflow-hidden transition-all duration-700 hoverable hover:-translate-y-2 hover:shadow-xl bg-white border border-gray-200/60"
             >
               {/* Project image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-64 overflow-hidden bg-gray-100">
                 <img
                   src={proj.image}
                   alt={proj.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <div className="p-6 -mt-6 relative z-10">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{proj.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{proj.desc}</p>
-                <div className="flex flex-wrap gap-2 mb-5">
+              <div className="p-8 relative z-10 bg-white">
+                <h3 className="text-2xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">{proj.title}</h3>
+                <p className="text-gray-500 text-sm mb-6 leading-relaxed line-clamp-2">{proj.desc}</p>
+                <div className="flex flex-wrap gap-2 mb-8">
                   {proj.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-1 text-xs rounded-md bg-muted text-muted-foreground font-mono">
+                    <span key={tag} className="px-3 py-1.5 text-xs rounded-full bg-blue-50 text-primary font-mono font-medium">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-3">
-                  <button className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-foreground transition-colors hoverable">
-                    <ExternalLink size={14} /> Demo
+                <div className="flex gap-4">
+                  <button className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-blue-700 transition-colors hoverable">
+                    <ExternalLink size={16} /> Demo
                   </button>
-                  <button className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors hoverable">
-                    <Github size={14} /> Code
+                  <button className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors hoverable">
+                    <Github size={16} /> Code
                   </button>
                 </div>
               </div>

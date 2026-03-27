@@ -49,46 +49,46 @@ const ExperienceSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="section-padding">
+    <section ref={sectionRef} id="experience" className="section-padding bg-white relative z-10">
       <div className="container mx-auto max-w-4xl">
-        <p className="text-primary font-mono text-sm mb-2 tracking-widest uppercase">Experience</p>
-        <h2 className="text-3xl md:text-5xl font-bold mb-12">
+        <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">Experience</p>
+        <h2 className="text-4xl md:text-6xl font-bold mb-16 tracking-tight text-foreground">
           My <span className="gradient-text">Journey</span>
         </h2>
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-secondary to-transparent" />
+          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-blue-200 to-transparent" />
 
           <div className="space-y-8">
             {experiences.map((exp, i) => (
               <div key={i} className="timeline-item relative pl-12 md:pl-16">
                 {/* Dot */}
-                <div className="absolute left-2.5 md:left-4.5 top-2 w-3 h-3 rounded-full neon-glow" style={{ background: "var(--gradient-primary)" }} />
+                <div className="absolute left-2.5 md:left-4.5 top-2 w-3 h-3 rounded-full shadow-sm" style={{ background: "var(--gradient-primary)" }} />
 
                 <div
-                  className="glass-card p-6 cursor-pointer hover-glow transition-all duration-500 hoverable"
+                  className="glass-card p-8 cursor-pointer hover-glow transition-all duration-500 hoverable bg-white border border-gray-100 hover:-translate-y-1 hover:shadow-md"
                   onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-lg font-semibold">{exp.role}</h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold text-gray-800">{exp.role}</h3>
                     <ChevronDown
-                      size={18}
-                      className={`text-muted-foreground transition-transform duration-300 ${
+                      size={20}
+                      className={`text-gray-400 transition-transform duration-300 ${
                         expandedIndex === i ? "rotate-180" : ""
                       }`}
                     />
                   </div>
-                  <p className="text-primary text-sm font-mono">{exp.company} · {exp.period}</p>
+                  <p className="text-primary text-sm font-mono font-medium mb-1">{exp.company} · {exp.period}</p>
 
                   <div
                     className={`overflow-hidden transition-all duration-500 ${
-                      expandedIndex === i ? "max-h-40 mt-4" : "max-h-0"
+                      expandedIndex === i ? "max-h-40 mt-4 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <p className="text-muted-foreground text-sm mb-3">{exp.desc}</p>
+                    <p className="text-gray-500 text-sm mb-4 leading-relaxed">{exp.desc}</p>
                     <div className="flex flex-wrap gap-2">
                       {exp.tags.map((tag) => (
-                        <span key={tag} className="px-2 py-1 text-xs rounded-md bg-muted text-muted-foreground font-mono">
+                        <span key={tag} className="px-3 py-1 text-xs rounded-full bg-blue-50 text-primary font-mono font-medium">
                           {tag}
                         </span>
                       ))}

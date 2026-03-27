@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 const categories = [
   {
     title: "Frontend",
-    color: "from-neon-purple to-neon-blue",
     skills: [
       { name: "React", level: 90, icon: Code2 },
       { name: "Next.js", level: 80, icon: Globe },
@@ -24,7 +23,6 @@ const categories = [
   },
   {
     title: "Backend",
-    color: "from-neon-blue to-neon-cyan",
     skills: [
       { name: "Node.js", level: 88, icon: Server },
       { name: "Express", level: 85, icon: Layers },
@@ -35,7 +33,6 @@ const categories = [
   },
   {
     title: "DevOps",
-    color: "from-neon-cyan to-neon-purple",
     skills: [
       { name: "Git", level: 90, icon: GitBranch },
       { name: "Docker", level: 70, icon: Box },
@@ -46,7 +43,6 @@ const categories = [
   },
   {
     title: "IT Support",
-    color: "from-neon-pink to-neon-purple",
     skills: [
       { name: "Networking", level: 85, icon: Wifi },
       { name: "Troubleshooting", level: 92, icon: Wrench },
@@ -80,34 +76,34 @@ const SkillsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="skills" className="section-padding">
+    <section ref={sectionRef} id="skills" className="section-padding bg-[#f8fafc] relative z-10 border-t border-gray-100">
       <div className="container mx-auto max-w-6xl">
-        <p className="text-primary font-mono text-sm mb-2 tracking-widest uppercase">Skills</p>
-        <h2 className="text-3xl md:text-5xl font-bold mb-12">
+        <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">Skills</p>
+        <h2 className="text-4xl md:text-6xl font-bold mb-16 tracking-tight text-foreground">
           My <span className="gradient-text">Toolkit</span>
         </h2>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {categories.map((cat) => (
-            <div key={cat.title} className="skill-card glass-card p-6 hoverable hover-glow transition-all duration-500">
-              <h3 className={`text-lg font-bold mb-5 bg-gradient-to-r ${cat.color} bg-clip-text text-transparent`}>
+            <div key={cat.title} className="skill-card glass-card p-8 hoverable hover-glow transition-all duration-500 bg-white border border-gray-100 hover:-translate-y-1 hover:shadow-md">
+              <h3 className="text-xl font-bold mb-6 text-gray-800">
                 {cat.title}
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {cat.skills.map((s) => {
                   const Icon = s.icon;
                   return (
                     <div key={s.name}>
-                      <div className="flex items-center justify-between text-sm mb-1.5">
-                        <div className="flex items-center gap-2">
-                          <Icon size={14} className="text-muted-foreground" />
-                          <span className="text-foreground">{s.name}</span>
+                      <div className="flex items-center justify-between text-sm mb-2">
+                        <div className="flex items-center gap-3">
+                          <Icon size={16} className="text-primary" />
+                          <span className="text-gray-700 font-medium">{s.name}</span>
                         </div>
-                        <span className="text-muted-foreground font-mono text-xs">{s.level}%</span>
+                        <span className="text-gray-400 font-mono text-xs font-semibold">{s.level}%</span>
                       </div>
-                      <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div
-                          className={`skill-bar-fill h-full rounded-full bg-gradient-to-r ${cat.color}`}
-                          style={{ width: `${s.level}%` }}
+                          className="skill-bar-fill h-full rounded-full"
+                          style={{ width: `${s.level}%`, background: "var(--gradient-primary)" }}
                         />
                       </div>
                     </div>
