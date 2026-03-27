@@ -42,19 +42,33 @@ const projects = [
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".project-card", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const cards = cardsRef.current.filter(Boolean);
+    if (cards.length === 0) return;
+
+    // Set initial state
+    gsap.set(cards, { y: 60, opacity: 0 });
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 85%",
+      onEnter: () => {
+        gsap.to(cards, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      },
+      once: true,
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
@@ -68,7 +82,8 @@ const ProjectsSection = () => {
           {projects.map((proj, i) => (
             <div
               key={i}
-              className="project-card group glass-card overflow-hidden hover-glow transition-all duration-500 hoverable hover:-translate-y-1"
+              ref={(el) => { cardsRef.current[i] = el; }}
+              className="group glass-card overflow-hidden hover-glow transition-all duration-500 hoverable hover:-translate-y-1"
             >
               {/* Project image */}
               <div className="relative h-48 overflow-hidden">

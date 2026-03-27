@@ -34,17 +34,18 @@ const ExperienceSection = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".timeline-item", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        x: -40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const els = sectionRef.current?.querySelectorAll(".timeline-item");
+    if (!els) return;
+    gsap.set(els, { x: -40, opacity: 0 });
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(els, { x: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" });
+      },
+    });
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (

@@ -25,17 +25,18 @@ const PhotographySection = () => {
   const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".photo-item", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        scale: 0.9,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const els = sectionRef.current?.querySelectorAll(".photo-item");
+    if (!els) return;
+    gsap.set(els, { scale: 0.9, opacity: 0 });
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(els, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+      },
+    });
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   const selectedPhoto = photos.find((p) => p.id === selected);
