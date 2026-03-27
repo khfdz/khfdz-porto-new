@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Code2, Database, Globe, Server, Terminal, Cpu,
+  Layout, Palette, Box, GitBranch, Cloud, Shield,
+  Wifi, Wrench, HardDrive, Monitor, Settings, Layers,
+  FileCode, Smartphone,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,44 +15,44 @@ const categories = [
     title: "Frontend",
     color: "from-neon-purple to-neon-blue",
     skills: [
-      { name: "React", level: 90 },
-      { name: "Next.js", level: 80 },
-      { name: "TypeScript", level: 85 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "HTML/CSS", level: 95 },
+      { name: "React", level: 90, icon: Code2 },
+      { name: "Next.js", level: 80, icon: Globe },
+      { name: "TypeScript", level: 85, icon: FileCode },
+      { name: "Tailwind CSS", level: 95, icon: Palette },
+      { name: "Responsive Design", level: 95, icon: Smartphone },
     ],
   },
   {
     title: "Backend",
     color: "from-neon-blue to-neon-cyan",
     skills: [
-      { name: "Node.js", level: 88 },
-      { name: "Express", level: 85 },
-      { name: "MongoDB", level: 82 },
-      { name: "MySQL", level: 78 },
-      { name: "REST API", level: 90 },
+      { name: "Node.js", level: 88, icon: Server },
+      { name: "Express", level: 85, icon: Layers },
+      { name: "MongoDB", level: 82, icon: Database },
+      { name: "MySQL", level: 78, icon: Database },
+      { name: "REST API", level: 90, icon: Globe },
     ],
   },
   {
     title: "DevOps",
     color: "from-neon-cyan to-neon-purple",
     skills: [
-      { name: "Git", level: 90 },
-      { name: "Docker", level: 70 },
-      { name: "Linux", level: 78 },
-      { name: "CI/CD", level: 65 },
-      { name: "AWS", level: 55 },
+      { name: "Git", level: 90, icon: GitBranch },
+      { name: "Docker", level: 70, icon: Box },
+      { name: "Linux", level: 78, icon: Terminal },
+      { name: "CI/CD", level: 65, icon: Settings },
+      { name: "AWS", level: 55, icon: Cloud },
     ],
   },
   {
     title: "IT Support",
     color: "from-neon-pink to-neon-purple",
     skills: [
-      { name: "Networking", level: 85 },
-      { name: "Troubleshooting", level: 92 },
-      { name: "Server Admin", level: 78 },
-      { name: "Security", level: 72 },
-      { name: "Hardware", level: 80 },
+      { name: "Networking", level: 85, icon: Wifi },
+      { name: "Troubleshooting", level: 92, icon: Wrench },
+      { name: "Server Admin", level: 78, icon: Cpu },
+      { name: "Security", level: 72, icon: Shield },
+      { name: "Hardware", level: 80, icon: HardDrive },
     ],
   },
 ];
@@ -90,20 +96,26 @@ const SkillsSection = () => {
                 {cat.title}
               </h3>
               <div className="space-y-4">
-                {cat.skills.map((s) => (
-                  <div key={s.name}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-foreground">{s.name}</span>
-                      <span className="text-muted-foreground font-mono">{s.level}%</span>
+                {cat.skills.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <div key={s.name}>
+                      <div className="flex items-center justify-between text-sm mb-1.5">
+                        <div className="flex items-center gap-2">
+                          <Icon size={14} className="text-muted-foreground" />
+                          <span className="text-foreground">{s.name}</span>
+                        </div>
+                        <span className="text-muted-foreground font-mono text-xs">{s.level}%</span>
+                      </div>
+                      <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className={`skill-bar-fill h-full rounded-full bg-gradient-to-r ${cat.color}`}
+                          style={{ width: `${s.level}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className={`skill-bar-fill h-full rounded-full bg-gradient-to-r ${cat.color}`}
-                        style={{ width: `${s.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}
