@@ -46,7 +46,11 @@ const ProjectsSection = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".project-card", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
         y: 60,
         opacity: 0,
         duration: 0.8,
