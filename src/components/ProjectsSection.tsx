@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, Github } from "lucide-react";
+import projectQueue from "@/assets/project-queue.jpg";
+import projectSimkop from "@/assets/project-simkop.jpg";
+import projectRestaurant from "@/assets/project-restaurant.jpg";
+import projectFurniture from "@/assets/project-furniture.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,24 +15,28 @@ const projects = [
     desc: "Multi-department queue management system for Clinic, Pharmacy, and Front Office with real-time display & ticket printing.",
     tags: ["React", "Node.js", "MongoDB", "Socket.IO"],
     gradient: "from-neon-purple to-neon-blue",
+    image: projectQueue,
   },
   {
     title: "SIM-KOPUKM",
     desc: "Cooperative management information system for member data, savings, loans, and reporting.",
     tags: ["React", "Express", "MySQL"],
     gradient: "from-neon-blue to-neon-cyan",
+    image: projectSimkop,
   },
   {
     title: "Restaurant Website",
     desc: "Modern restaurant website with menu showcase, online ordering interface, and responsive design.",
     tags: ["Next.js", "Tailwind CSS", "MongoDB"],
     gradient: "from-neon-cyan to-neon-purple",
+    image: projectRestaurant,
   },
   {
     title: "Furniture Website",
     desc: "E-commerce style furniture showcase with product catalog, filtering, and contact integration.",
     tags: ["React", "Tailwind CSS", "Node.js"],
     gradient: "from-neon-pink to-neon-purple",
+    image: projectFurniture,
   },
 ];
 
@@ -62,9 +70,17 @@ const ProjectsSection = () => {
               key={i}
               className="project-card group glass-card overflow-hidden hover-glow transition-all duration-500 hoverable hover:-translate-y-1"
             >
-              {/* Top gradient bar */}
-              <div className={`h-1 bg-gradient-to-r ${proj.gradient}`} />
-              <div className="p-6">
+              {/* Project image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={proj.image}
+                  alt={proj.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+              </div>
+              <div className="p-6 -mt-6 relative z-10">
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{proj.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{proj.desc}</p>
                 <div className="flex flex-wrap gap-2 mb-5">
