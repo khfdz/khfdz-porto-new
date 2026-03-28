@@ -36,7 +36,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <div ref={containerRef} className="loading-screen">
       <div className="text-center">
-        <h2 className="text-2xl font-bold gradient-text mb-6 tracking-widest">DH</h2>
+        <h2 className="text-2xl font-bold gradient-text mb-6 tracking-widest">khfdz</h2>
         <div className="w-48 h-[2px] bg-muted rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-100"

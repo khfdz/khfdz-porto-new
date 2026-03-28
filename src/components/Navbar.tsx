@@ -37,13 +37,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-nav py-3" : "py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass-nav py-3" : "py-5"
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
         <a href="#" className="text-xl font-bold gradient-text tracking-wider">
-          DH<span className="text-primary">.</span>
+          khfdz<span className="text-primary">.</span>
         </a>
 
         {/* Desktop */}

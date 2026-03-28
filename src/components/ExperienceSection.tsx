@@ -8,25 +8,34 @@ gsap.registerPlugin(ScrollTrigger);
 const experiences = [
   {
     role: "IT Staff",
-    company: "Hospital",
-    period: "2023 – Present",
-    desc: "Managing hospital information systems, network infrastructure, troubleshooting, and maintaining server uptime for critical healthcare operations.",
-    tags: ["Networking", "Server Admin", "Troubleshooting"],
+    company: "RS Permata Keluarga Karawang",
+    period: "2024 – Present",
+    desc: "Managing hospital information systems, network infrastructure, troubleshooting, and maintaining server uptime for critical healthcare operations. Also developing internal applications including pharmacy queue systems, polyclinic queue management, front office systems, and HR training (diklat) management systems.",
+    tags: ["Networking", "Server Admin", "Troubleshooting", "Fullstack Development"],
   },
   {
     role: "Fullstack Developer",
     company: "CV Himavera",
-    period: "2022 – 2023",
-    desc: "Built full-stack web applications including queue management systems, internal tools, and client-facing websites using the MERN stack.",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
+    period: "2025 - Present",
+    desc: "Developing internal web applications for government agencies, including management systems and operational tools. Built using the MERN stack adapted with MySQL, and deployed on VPS servers with full backend and infrastructure handling.",
+    tags: ["React", "Node.js", "Express", "MySQL", "VPS"],
+  },
+
+  {
+    role: "Internship (CCTV Technician)",
+    company: "Prisma Komputer",
+    period: "2021",
+    desc: "Worked as a CCTV technician intern, handling installation, maintenance, and troubleshooting of surveillance systems. Also assisted in daily computer store operations including hardware setup and customer support.",
+    tags: ["CCTV Installation", "Hardware", "Troubleshooting"],
   },
   {
-    role: "Internship & Freelance",
-    company: "Various",
-    period: "2021 – 2022",
-    desc: "Completed internship projects and freelance work building responsive websites, landing pages, and small business web solutions.",
-    tags: ["HTML/CSS", "JavaScript", "WordPress"],
-  },
+    role: "Freelance Photographer",
+    company: "Self-Employed",
+    period: "2018 – 2025",
+    desc: "Provided photography services for events such as engagements, graduations, and general documentation. Responsible for shooting, editing, and delivering final results to clients.",
+    tags: ["Photography", "Lightroom", "Photoshop", "Event Documentation"],
+  }
+
 ];
 
 const ExperienceSection = () => {
@@ -73,17 +82,19 @@ const ExperienceSection = () => {
                     <h3 className="text-xl font-bold text-gray-800">{exp.role}</h3>
                     <ChevronDown
                       size={20}
-                      className={`text-gray-400 transition-transform duration-300 ${
-                        expandedIndex === i ? "rotate-180" : ""
-                      }`}
+                      className={`text-gray-400 transition-transform duration-300 ${expandedIndex === i ? "rotate-180" : ""
+                        }`}
                     />
                   </div>
-                  <p className="text-primary text-sm font-mono font-medium mb-1">{exp.company} · {exp.period}</p>
+                  <p className="text-primary text-md font-mono font-medium mb-1">{exp.company}</p>
+
+                  <div>
+                    {exp.period}
+                  </div>
 
                   <div
-                    className={`overflow-hidden transition-all duration-500 ${
-                      expandedIndex === i ? "max-h-40 mt-4 opacity-100" : "max-h-0 opacity-0"
-                    }`}
+                    className={`overflow-hidden transition-all duration-500 ${expandedIndex === i ? "max-h-40 mt-4 opacity-100" : "max-h-0 opacity-0"
+                      }`}
                   >
                     <p className="text-gray-500 text-sm mb-4 leading-relaxed">{exp.desc}</p>
                     <div className="flex flex-wrap gap-2">

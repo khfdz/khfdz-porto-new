@@ -7,6 +7,7 @@ const titles = [
   "IT Specialist",
   "Problem Solver",
   "Creative Thinker",
+  "Photographer"
 ];
 
 const HeroSection = () => {
@@ -49,7 +50,7 @@ const HeroSection = () => {
         ease: "power3.out",
         delay: 0.5,
       });
-      
+
       // Gentle parallax for abstract shapes
       gsap.to(".abstract-shape-1", {
         y: -30,
@@ -80,7 +81,7 @@ const HeroSection = () => {
     >
       {/* Light modern background grid */}
       <div className="absolute inset-0 grid-bg opacity-50" />
-      
+
       {/* Abstract Soft Shapes (Artistic modern web feel) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="abstract-shape-1 absolute top-[10%] left-[15%] w-96 h-96 bg-primary/10 rounded-full blur-[100px] mix-blend-multiply" />

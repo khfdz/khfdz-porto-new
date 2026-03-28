@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Briefcase, Code2, Server } from "lucide-react";
+import { Briefcase, Camera, Code2, Server } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,10 +17,10 @@ const highlights = [
     desc: "MERN stack specialist building end-to-end solutions",
   },
   {
-    icon: Server,
-    title: "System Builder",
-    desc: "Scalable architectures & real-world applications",
-  },
+    icon: Camera,
+    title: "Photographer",
+    desc: "Capturing moments with a creative eye",
+  }
 ];
 
 const AboutSection = () => {
