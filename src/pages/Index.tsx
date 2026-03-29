@@ -11,6 +11,7 @@ import TechStackSection from "@/components/TechStackSection";
 import PhotographySection from "@/components/PhotographySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import GSAPInitializer from "@/components/GSAPInitializer";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -19,14 +20,16 @@ const Index = () => {
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <CustomCursor />
+      <GSAPInitializer />
       <Navbar />
       <main className="overflow-hidden">
         <HeroSection />
         <AboutSection />
-        <SkillsSection />
+
         <ExperienceSection />
         <ProjectsSection />
-        <TechStackSection />
+        <SkillsSection />
+        {/* <TechStackSection /> */}
         <PhotographySection />
         <ContactSection />
       </main>

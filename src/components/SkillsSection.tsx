@@ -1,117 +1,162 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Code2, Database, Globe, Server, Terminal, Cpu,
-  Layout, Palette, Box, GitBranch, Cloud, Shield,
-  Wifi, Wrench, HardDrive, Monitor, Settings, Layers,
-  FileCode, Smartphone,
-} from "lucide-react";
+import { projects, skillMetadata } from "@/constants/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const categories = [
-  {
-    title: "Frontend",
-    skills: [
-      { name: "React", level: 90, icon: Code2 },
-      { name: "Next.js", level: 80, icon: Globe },
-      { name: "TypeScript", level: 85, icon: FileCode },
-      { name: "Tailwind CSS", level: 95, icon: Palette },
-      { name: "Responsive Design", level: 95, icon: Smartphone },
-    ],
-  },
-  {
-    title: "Backend",
-    skills: [
-      { name: "Node.js", level: 88, icon: Server },
-      { name: "Express", level: 85, icon: Layers },
-      { name: "MongoDB", level: 82, icon: Database },
-      { name: "MySQL", level: 78, icon: Database },
-      { name: "REST API", level: 90, icon: Globe },
-    ],
-  },
-  {
-    title: "DevOps",
-    skills: [
-      { name: "Git", level: 90, icon: GitBranch },
-      { name: "Docker", level: 70, icon: Box },
-      { name: "Linux", level: 78, icon: Terminal },
-      { name: "CI/CD", level: 65, icon: Settings },
-      { name: "AWS", level: 55, icon: Cloud },
-    ],
-  },
-  {
-    title: "IT Support",
-    skills: [
-      { name: "Networking", level: 85, icon: Wifi },
-      { name: "Troubleshooting", level: 92, icon: Wrench },
-      { name: "Server Admin", level: 78, icon: Cpu },
-      { name: "Security", level: 72, icon: Shield },
-      { name: "Hardware", level: 80, icon: HardDrive },
-    ],
-  },
-];
-
 const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Extract unique skills from projects
+  const uniqueStacks = Array.from(new Set(projects.flatMap((p) => p.stack)));
+  const uniqueTools = Array.from(new Set(projects.flatMap((p) => p.tools)));
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const cards = section.querySelectorAll(".skill-card");
-    const bars = section.querySelectorAll(".skill-bar-fill");
-    gsap.set(cards, { y: 40, opacity: 0 });
-    gsap.set(bars, { scaleX: 0, transformOrigin: "left" });
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top 85%",
-      once: true,
-      onEnter: () => {
-        gsap.to(cards, { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out" });
-        gsap.to(bars, { scaleX: 1, duration: 1, stagger: 0.05, ease: "power3.out", delay: 0.3 });
-      },
-    });
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray(".skill-card-artistic");
+      
+      // Entrance animation
+      gsap.from(cards, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        rotateX: -15,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out",
+      });
+
+      // Subtle floating animation
+      cards.forEach((card: any, i) => {
+        gsap.to(card, {
+          y: "random(-10, 10)",
+          x: "random(-5, 5)",
+          duration: "random(2, 4)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.2,
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, card: HTMLDivElement) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    gsap.to(card, {
+      x: x * 0.15,
+      y: y * 0.15,
+      rotateX: -y * 0.1,
+      rotateY: x * 0.1,
+      duration: 0.5,
+      ease: "power3.out",
+    });
+  };
+
+  const handleMouseLeave = (card: HTMLDivElement) => {
+    gsap.to(card, {
+      x: 0,
+      y: 0,
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.8,
+      ease: "elastic.out(1, 0.3)",
+    });
+  };
+
   return (
-    <section ref={sectionRef} id="skills" className="section-padding bg-[#f8fafc] relative z-10 border-t border-gray-100">
-      <div className="container mx-auto max-w-6xl">
-        <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">Skills</p>
-        <h2 className="text-4xl md:text-6xl font-bold mb-16 tracking-tight text-foreground">
-          My <span className="gradient-text">Toolkit</span>
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {categories.map((cat) => (
-            <div key={cat.title} className="skill-card glass-card p-8 hoverable hover-glow transition-all duration-500 bg-white border border-gray-100 hover:-translate-y-1 hover:shadow-md">
-              <h3 className="text-xl font-bold mb-6 text-gray-800">
-                {cat.title}
-              </h3>
-              <div className="space-y-5">
-                {cat.skills.map((s) => {
-                  const Icon = s.icon;
-                  return (
-                    <div key={s.name}>
-                      <div className="flex items-center justify-between text-sm mb-2">
-                        <div className="flex items-center gap-3">
-                          <Icon size={16} className="text-primary" />
-                          <span className="text-gray-700 font-medium">{s.name}</span>
-                        </div>
-                        <span className="text-gray-400 font-mono text-xs font-semibold">{s.level}%</span>
-                      </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div
-                          className="skill-bar-fill h-full rounded-full"
-                          style={{ width: `${s.level}%`, background: "var(--gradient-primary)" }}
-                        />
-                      </div>
+    <section ref={sectionRef} id="skills" className="section-padding bg-background relative z-10 overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="mb-16">
+          <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase font-medium">The Toolkit</p>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+            Technologies & <span className="gradient-text">Craft</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Core Tech Stack */}
+          <div>
+            <h3 className="text-xl font-mono text-gray-400 mb-8 flex items-center gap-4">
+              <span className="h-px flex-grow bg-gray-100"></span>
+              CORE STACK
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {uniqueStacks.map((name) => {
+                const meta = skillMetadata[name];
+                if (!meta) return null;
+                const Icon = meta.icon;
+                return (
+                  <div
+                    key={name}
+                    className="skill-card-artistic group relative glass-card p-6 bg-white border border-gray-100/50 flex flex-col items-center justify-center transition-shadow hover:shadow-xl hover:shadow-primary/5 cursor-default"
+                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+                  >
+                    <div className="mb-4 p-3 rounded-2xl bg-gray-50 text-gray-400 group-hover:text-primary group-hover:bg-primary/5 transition-all duration-300">
+                      <Icon size={24} />
                     </div>
-                  );
-                })}
-              </div>
+                    <span className="text-sm font-semibold text-gray-600 group-hover:text-foreground transition-colors">
+                      {meta.name}
+                    </span>
+                    {/* Level Dot Indicator */}
+                    <div className="absolute top-3 right-3 flex gap-0.5">
+                      {[...Array(3)].map((_, i) => (
+                        <div 
+                          key={i} 
+                          className={`w-1 h-1 rounded-full ${i < Math.round(meta.level / 33) ? "bg-primary/40" : "bg-gray-100"}`} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          {/* Tools & Environment */}
+          <div>
+            <h3 className="text-xl font-mono text-gray-400 mb-8 flex items-center gap-4">
+              <span className="h-px flex-grow bg-gray-100"></span>
+              TOOLS & ENV
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {uniqueTools.map((name) => {
+                const meta = skillMetadata[name];
+                if (!meta) return null;
+                const Icon = meta.icon;
+                return (
+                  <div
+                    key={name}
+                    className="skill-card-artistic group relative glass-card p-6 bg-white border border-gray-100/50 flex flex-col items-center justify-center transition-shadow hover:shadow-xl hover:shadow-emerald-400/5 cursor-default"
+                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+                  >
+                    <div className="mb-4 p-3 rounded-2xl bg-gray-50 text-gray-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-all duration-300">
+                      <Icon size={24} />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-600 group-hover:text-foreground transition-colors">
+                      {meta.name}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

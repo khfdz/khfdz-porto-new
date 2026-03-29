@@ -9,7 +9,7 @@ const highlights = [
   {
     icon: Briefcase,
     title: "IT Staff",
-    desc: "Hospital system management & infrastructure support",
+    desc: "IT Systems, Infrastructure, Hardware & Application Support",
   },
   {
     icon: Code2,
